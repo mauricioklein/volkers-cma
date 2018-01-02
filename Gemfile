@@ -30,7 +30,8 @@ group :development, :test do
   gem 'byebug', platform: :mri
   gem "database_cleaner"
   gem "rspec-rails"
-  gem "factory_bot"
+  gem 'factory_bot_rails', '~> 4.0'
+  gem 'shoulda-matchers', '~> 3.1'
 end
 
 group :development do
