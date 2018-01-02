@@ -1,37 +1,19 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  describe 'validations' do
+  describe 'full_name' do
     it { is_expected.to validate_presence_of(:full_name) }
+  end
+
+  describe 'email' do
     it { is_expected.to validate_presence_of(:email) }
+    it { is_expected.to validate_uniqueness_of(:email) }
+    it { is_expected.to allow_value('peter@park.com').for(:email) }
+    it { is_expected.to_not allow_value('foobar').for(:email) }
+  end
+
+  describe 'password' do
     it { is_expected.to validate_presence_of(:password) }
-  end
-
-  describe 'email format' do
-    subject { build(:user, email: email) }
-
-    context 'with valid email' do
-      let(:email) { 'peter.park@spiderman.com' }
-      it { is_expected.to be_valid }
-    end
-
-    context 'with invalid email' do
-      let(:email) { 'foobar' }
-      it { is_expected.to be_invalid }
-    end
-  end
-
-  describe 'password format' do
-    subject { build(:user, password: password) }
-
-    context 'with password >= 8 characters' do
-      let(:password) { 'abcd1234' }
-      it { is_expected.to be_valid }
-    end
-
-    context 'with password < 8 characters' do
-      let(:password) { 'abcd' }
-      it { is_expected.to be_invalid }
-    end
+    it { is_expected.to validate_length_of(:password).is_at_least(8).on(:create) }
   end
 end
