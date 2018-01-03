@@ -10,8 +10,6 @@ class AuthenticationService
     def logout(token)
       user = User.find_by!(token: token)
       user.update(token: nil)
-    rescue ActiveRecord::RecordNotFound
-      raise CustomErrors::Unauthorized
     end
   end
 end

@@ -39,7 +39,7 @@ RSpec.describe AuthenticationService do
     context 'with invalid token' do
       let(:token) { user_token.reverse }
 
-      it { expect { subject }.to raise_error(CustomErrors::Unauthorized) }
+      it { expect { subject }.to raise_error(ActiveRecord::RecordNotFound) }
     end
   end
 end
