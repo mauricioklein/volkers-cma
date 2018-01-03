@@ -4,6 +4,7 @@ class ContractsController < ApplicationController
   def show
     contract = Contract.find(params[:id])
     raise CustomErrors::Unauthorized if contract.user != @current_user
+    raise ActiveRecord::RecordNotFound unless contract.active
     render json: contract
   end
 

@@ -7,7 +7,7 @@ RSpec.describe ContractsController, type: :controller do
       get :show, params: { id: contract_id }
     end
 
-    let!(:contract) { create(:contract, user: owner) }
+    let!(:contract) { create(:contract, user: owner, active: false) }
     let(:contract_id) { contract.id }
 
     let(:owner) { create(:user, token: owner_token) }
@@ -18,11 +18,20 @@ RSpec.describe ContractsController, type: :controller do
     context 'user owns the contract' do
       let(:token) { owner_token }
 
-      context 'and contract exists' do
+      context 'and contract exists and is active' do
         specify do
           subject
           expect(response).to have_http_status(:success)
           expect(body).to include(:id, :vendor, :starts_on, :ends_on, :price, :user_id, :active)
+        end
+      end
+
+      context 'and contract exists and is inactive' do
+        before { contract.update(active: false) }
+
+        specify do
+          subject
+          expect(response).to have_http_status(:not_found)
         end
       end
 
