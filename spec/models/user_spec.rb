@@ -12,8 +12,9 @@ RSpec.describe User, type: :model do
     it { is_expected.to_not allow_value('foobar').for(:email) }
   end
 
-  describe 'password' do
-    it { is_expected.to validate_presence_of(:password) }
-    it { is_expected.to validate_length_of(:password).is_at_least(8).on(:create) }
+  describe 'password_digest' do
+    it { is_expected.to validate_presence_of(:password_digest) }
+    it { is_expected.to have_secure_password }
+    it { is_expected.to validate_length_of(:password_digest).is_at_least(8).on(:create) }
   end
 end
