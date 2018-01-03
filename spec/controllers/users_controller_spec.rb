@@ -78,7 +78,7 @@ RSpec.describe UsersController, type: :controller do
 
       specify do
         subject
-        expect(response).to have_http_status(:unauthorized)
+        expect(response).to have_http_status(:not_found)
       end
     end
   end

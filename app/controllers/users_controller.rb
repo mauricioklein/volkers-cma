@@ -25,8 +25,4 @@ private
         :password
       )
   end
-
-  def token
-    request.env['TOKEN']
-  end
 end
