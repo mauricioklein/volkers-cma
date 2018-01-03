@@ -6,6 +6,8 @@ class Contract < ApplicationRecord
   validates :price, numericality: { greater_than_or_equal_to: 0 }
   validates_associated :user
 
+  before_create { |contract| contract.active = true }
+
 private
 
   def starts_on_before_ends_on
