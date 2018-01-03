@@ -8,6 +8,10 @@ class Contract < ApplicationRecord
 
   before_create { |contract| contract.active = true }
 
+  def mark_as_inactive!
+    update(active: false)
+  end
+
 private
 
   def starts_on_before_ends_on

@@ -34,6 +34,17 @@ RSpec.describe Contract, type: :model do
     it { is_expected.to validate_length_of(:user) }
     it { is_expected.to belong_to(:user) }
   end
+
+  describe '#mark_as_inactive!' do
+    subject { contract.mark_as_inactive! }
+
+    let(:contract) { create(:contract) }
+
+    specify do
+      subject
+      expect(contract.reload.active).to be false
+    end
+  end
 end
 
 # == Schema Information
