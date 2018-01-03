@@ -9,7 +9,6 @@ FactoryBot.define do
 end
 
 # == Schema Information
-# Schema version: 20180103080537
 #
 # Table name: contracts
 #
@@ -21,8 +20,13 @@ end
 #  user_id    :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  active     :boolean
 #
 # Indexes
 #
 #  index_contracts_on_user_id  (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (user_id => users.id)
 #
