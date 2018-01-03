@@ -4,4 +4,8 @@ class User < ApplicationRecord
   validates :password_digest, length: { minimum: 8 }
 
   has_secure_password
+
+  def as_json(options)
+    super(only: [:id, :full_name, :email])
+  end
 end
