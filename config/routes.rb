@@ -4,4 +4,6 @@ Rails.application.routes.draw do
     get 'login', to: :login
     get 'logout', to: :logout
   end
+
+  resources :contracts, only: [:show, :create, :delete]
 end
