@@ -52,7 +52,7 @@ RSpec.describe UsersController, type: :controller do
     context 'with failed login' do
       let(:login_payload) { { email: user.email, password: password.reverse } }
 
-      it { expect(response).to have_http_status(:unauthorized) }
+      it { expect(response).to have_http_status(:forbidden) }
     end
   end
 
@@ -78,7 +78,7 @@ RSpec.describe UsersController, type: :controller do
 
       specify do
         subject
-        expect(response).to have_http_status(:not_found)
+        expect(response).to have_http_status(:forbidden)
       end
     end
   end
