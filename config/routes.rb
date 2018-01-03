@@ -5,5 +5,5 @@ Rails.application.routes.draw do
     get 'logout', to: :logout
   end
 
-  resources :contracts, only: [:show, :create, :delete]
+  resources :contracts, only: [:show, :create, :destroy]
 end

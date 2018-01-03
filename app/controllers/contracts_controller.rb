@@ -10,7 +10,11 @@ class ContractsController < ApplicationController
   def create
   end
 
-  def delete
+  def destroy
+    contract = Contract.find(params[:id])
+    raise CustomErrors::Unauthorized if contract.user != @current_user
+    contract.update(active: false)
+    render status: :ok
   end
 
 private
