@@ -3,6 +3,17 @@ class UsersController < ApplicationController
     render json: User.create!(user_params)
   end
 
+  def login
+    render json: {
+      token: AuthenticationService.login(user_params[:email], user_params[:password])
+    }
+  end
+
+  def logout
+    AuthenticationService.logout(token)
+    render status: :ok
+  end
+
 private
 
   def user_params
@@ -13,5 +24,9 @@ private
         :email,
         :password
       )
+  end
+
+  def token
+    request.env['TOKEN']
   end
 end
