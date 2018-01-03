@@ -60,7 +60,7 @@ RSpec.describe ContractsController, type: :controller do
 
       specify do
         subject
-        expect(response).to have_http_status(:unauthorized)
+        expect(response).to have_http_status(:forbidden)
       end
     end
   end
@@ -113,7 +113,7 @@ RSpec.describe ContractsController, type: :controller do
 
       specify do
         subject
-        expect(response).to have_http_status(:unauthorized)
+        expect(response).to have_http_status(:forbidden)
       end
     end
   end
@@ -161,7 +161,7 @@ RSpec.describe ContractsController, type: :controller do
 
       specify do
         subject
-        expect(response).to have_http_status(:unauthorized)
+        expect(response).to have_http_status(:forbidden)
       end
     end
   end

@@ -1,30 +1,38 @@
 class ContractsController < ApplicationController
-  before_action :current_user
+  before_action :load_contract, except: [:create]
+  before_action :create_contract_service, except: [:create]
+
+  rescue_from CustomErrors::ContractInactive, with: :contract_inactive_error
 
   def show
-    contract = Contract.find(params[:id])
-    raise CustomErrors::Unauthorized if contract.user != @current_user
-    raise ActiveRecord::RecordNotFound unless contract.active
-    render json: contract
+    render json: @contract_service.access_contract
   end
 
   def create
-    render json: Contract.create!(contract_params.merge(user_id: current_user.id))
+    render json: Contract.create!(
+      contract_params.merge(
+        user_id: current_user.id
+      )
+    )
   end
 
   def destroy
-    contract = Contract.find(params[:id])
-    raise CustomErrors::Unauthorized if contract.user != @current_user
-    contract.update(active: false)
+    @contract_service.deactivate_contract
     render status: :ok
   end
 
 private
 
-  def current_user
-    @current_user = User.find_by!(token: token)
-  rescue ActiveRecord::RecordNotFound
-    raise CustomErrors::Unauthorized
+  def load_contract
+    @contract ||= Contract.find(params[:id])
+  end
+
+  def create_contract_service
+    @contract_service ||= ContractService.new(@contract, current_user)
+  end
+
+  def contract_inactive_error(error)
+    render status: :not_found
   end
 
   def contract_params
