@@ -18,3 +18,21 @@ RSpec.describe User, type: :model do
     it { is_expected.to validate_length_of(:password_digest).is_at_least(8).on(:create) }
   end
 end
+
+# == Schema Information
+# Schema version: 20180103080537
+#
+# Table name: users
+#
+#  id              :integer          not null, primary key
+#  full_name       :string
+#  email           :string
+#  password_digest :string
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  token           :string
+#
+# Indexes
+#
+#  index_users_on_token  (token)
+#
