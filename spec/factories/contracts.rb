@@ -4,6 +4,7 @@ FactoryBot.define do
     starts_on Date.yesterday
     ends_on Date.tomorrow
     price 29.99
+    active true
     user
   end
 end
