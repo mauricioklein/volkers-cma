@@ -8,6 +8,7 @@ class ContractsController < ApplicationController
   end
 
   def create
+    render json: Contract.create!(contract_params.merge(user_id: current_user.id))
   end
 
   def destroy
@@ -23,5 +24,16 @@ private
     @current_user = User.find_by!(token: token)
   rescue ActiveRecord::RecordNotFound
     raise CustomErrors::Unauthorized
+  end
+
+  def contract_params
+    params
+      .require(:contract)
+      .permit(
+        :vendor,
+        :starts_on,
+        :ends_on,
+        :price
+      )
   end
 end

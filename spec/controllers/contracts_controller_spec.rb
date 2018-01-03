@@ -108,4 +108,52 @@ RSpec.describe ContractsController, type: :controller do
       end
     end
   end
+
+  describe "POST #create" do
+    subject do
+      request.env['TOKEN'] = token
+      post :create, params: { contract: contract_payload }
+    end
+
+    let(:body) { JSON.parse(response.body, symbolize_names: true) }
+
+    let!(:user) { create(:user, token: 'ABCD1234') }
+
+    let(:valid_payload) { attributes_for(:contract) }
+
+    context 'user authenticated' do
+      let(:token) { user.token }
+
+      context 'and contract payload is valid' do
+        let(:contract_payload) { valid_payload }
+
+        specify do
+          subject
+          expect(response).to have_http_status(:success)
+          expect(body).to include(:id, :vendor, :price, :starts_on, :ends_on, :user_id)
+          expect(Contract.first.active).to be true
+        end
+      end
+
+      context 'and contract payload is invalid' do
+        let(:contract_payload) { valid_payload.merge(vendor: '') }
+
+        specify do
+          subject
+          expect(response).to have_http_status(:unprocessable_entity)
+          expect(body[:errors]).to eq("Validation failed: Vendor can't be blank")
+        end
+      end
+    end
+
+    context 'user not authenticated' do
+      let(:token) { user.token.reverse }
+      let(:contract_payload) { valid_payload }
+
+      specify do
+        subject
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
+  end
 end
