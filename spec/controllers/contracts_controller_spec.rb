@@ -22,7 +22,7 @@ RSpec.describe ContractsController, type: :controller do
         specify do
           subject
           expect(response).to have_http_status(:success)
-          expect(body).to include(:id, :vendor, :starts_on, :ends_on, :price, :user_id, :active)
+          expect(body).to include(:id, :vendor, :starts_on, :ends_on, :price, :user_id)
         end
       end
 

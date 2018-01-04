@@ -21,6 +21,6 @@ class ContractService
 private
 
   def user_owns_contract?
-    contract.user == current_user
+    contract.owner == current_user
   end
 end

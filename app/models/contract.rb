@@ -1,15 +1,20 @@
 class Contract < ApplicationRecord
   belongs_to :user
+  alias_attribute :owner, :user
 
   validates_presence_of :vendor, :starts_on, :ends_on, :price, :user
   validate :starts_on_before_ends_on
   validates :price, numericality: { greater_than_or_equal_to: 0 }
-  validates_associated :user
+  validates_associated :owner
 
   before_create { |contract| contract.active = true }
 
   def mark_as_inactive!
     update(active: false)
+  end
+
+  def as_json(options)
+    super(except: [:active])
   end
 
 private

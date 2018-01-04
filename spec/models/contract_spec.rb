@@ -30,7 +30,7 @@ RSpec.describe Contract, type: :model do
     it { is_expected.to_not allow_value(-15.00).for(:price) }
   end
 
-  describe 'user' do
+  describe 'user (a.k.a. owner)' do
     it { is_expected.to validate_length_of(:user) }
     it { is_expected.to belong_to(:user) }
   end
