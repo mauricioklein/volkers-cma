@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe ContractsController, type: :controller do
   describe "GET #show" do
     subject do
-      request.env['TOKEN'] = token
+      request.headers['TOKEN'] = token
       get :show, params: { id: contract_id }
     end
 
@@ -67,7 +67,7 @@ RSpec.describe ContractsController, type: :controller do
 
   describe "DELETE #destroy" do
     subject do
-      request.env['TOKEN'] = token
+      request.headers['TOKEN'] = token
       get :destroy, params: { id: contract_id }
     end
 
@@ -120,7 +120,7 @@ RSpec.describe ContractsController, type: :controller do
 
   describe "POST #create" do
     subject do
-      request.env['TOKEN'] = token
+      request.headers['TOKEN'] = token
       post :create, params: { contract: contract_payload }
     end
 

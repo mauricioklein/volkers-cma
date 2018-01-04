@@ -7,11 +7,11 @@ class ApplicationController < ActionController::API
 private
 
   def current_user
-    @current_user = AuthenticationService.login_by_token(token)
+    @current_user ||= AuthenticationService.login_by_token(token)
   end
 
   def token
-    request.env['TOKEN']
+    request.headers['TOKEN']
   end
 
   def record_invalid_error(error)

@@ -33,7 +33,7 @@ RSpec.describe UsersController, type: :controller do
     end
   end
 
-  describe "GET #login" do
+  describe "POST #login" do
     subject! { get :login, params: { user: login_payload } }
     let(:user) { create(:user, password: password) }
     let(:password) { '12345678' }
@@ -56,9 +56,9 @@ RSpec.describe UsersController, type: :controller do
     end
   end
 
-  describe "GET #logout" do
+  describe "POST #logout" do
     subject do
-      request.env['TOKEN'] = token
+      request.headers['TOKEN'] = token
       get :logout
     end
     let!(:user) { create(:user, token: user_token) }
