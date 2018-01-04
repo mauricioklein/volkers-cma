@@ -5,7 +5,7 @@ class UsersController < ApplicationController
 
   def login
     render json: {
-      token: AuthenticationService.login_by_email_and_pass(user_params[:email], user_params[:password])
+      token: AuthenticationService.login_by_email_and_pass(email, password)
     }
   end
 
@@ -24,5 +24,13 @@ private
         :email,
         :password
       )
+  end
+
+  def email
+    user_params[:email]
+  end
+
+  def password
+    user_params[:password]
   end
 end
