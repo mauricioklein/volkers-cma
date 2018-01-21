@@ -4,8 +4,9 @@ Volders CMA is a small set of Volders's contract management api.
 
 ## Technologies
 
-- Rails 5
-- Postgresql
+- Ruby 2.5.0
+- Rails 5.0.1
+- Postgresql 10.1
 
 ## Setup
 
@@ -13,14 +14,21 @@ The easiest way to setup the project is using Docker.
 
 In this project, you can find the following files:
 - **Dockerfile**: responsible to create the Docker image for the API;
-- **docker-compose.dev.yml**: setup the whole environment (API + database), linking them automatically.
+- **docker-compose.yml**: setup the whole environment (API + database), linking them automatically.
 
 By default, the API container exposes the port `3000`, which can be connected to a localhost port (more info below).
 
 ### Starting the environment
 
 ```bash
-$ docker-compose -f docker-compose.dev.yml run --rm -p 3000:3000 app bash
+# Download the necessary Docker images
+$ docker-compose pull
+
+# Build the application image
+$ docker-compose build app
+
+# Start the environment, opening a bash terminal on the application container
+$ docker-compose run --rm -p 3000:3000 app bash
 ```
 
 This command will:
